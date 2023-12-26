@@ -10,6 +10,5 @@ Key Features of the Game:
 - Immersive sound effects delivered through speakers
 - Real-time display of the player's current score on a HEX display, along with the all-time high score
 - Efficient utilization of SDRAM Memory to store and retrieve Title Screens, High Scores, Audio Files, etc.
-- Seamless operations ensured through Clock-Crossing techniques
 
 I hope you enjoy! (FYI, I recieved a perfect mark for the project!)

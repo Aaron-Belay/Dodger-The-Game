@@ -1,0 +1,141 @@
+module DE1_SoC_Audio_Example (
+	// Inputs
+	CLOCK_50,
+	KEY,
+
+	AUD_ADCDAT,
+
+	// Bidirectionals
+	AUD_BCLK,
+	AUD_ADCLRCK,
+	AUD_DACLRCK,
+
+	FPGA_I2C_SDAT,
+
+	// Outputs
+	AUD_XCK,
+	AUD_DACDAT,
+
+	FPGA_I2C_SCLK,
+	SW
+);
+
+/*****************************************************************************
+ *                           Parameter Declarations                          *
+ *****************************************************************************/
+
+
+/*****************************************************************************
+ *                             Port Declarations                             *
+ *****************************************************************************/
+// Inputs
+input				CLOCK_50;
+input		[3:0]	KEY;
+input		[3:0]	SW;
+
+input				AUD_ADCDAT;
+
+// Bidirectionals
+inout				AUD_BCLK;
+inout				AUD_ADCLRCK;
+inout				AUD_DACLRCK;
+
+inout				FPGA_I2C_SDAT;
+
+// Outputs
+output				AUD_XCK;
+output				AUD_DACDAT;
+
+output				FPGA_I2C_SCLK;
+
+/*****************************************************************************
+ *                 Internal Wires and Registers Declarations                 *
+ *****************************************************************************/
+// Internal Wires
+wire				audio_in_available;
+wire		[31:0]	left_channel_audio_in;
+wire		[31:0]	right_channel_audio_in;
+wire				read_audio_in;
+
+wire				audio_out_allowed;
+wire		[31:0]	left_channel_audio_out;
+wire		[31:0]	right_channel_audio_out;
+wire				write_audio_out;
+// Internal Registers
+
+reg [18:0] delay_cnt;
+wire [18:0] delay;
+reg snd;
+
+
+wire [15:0] audiofrommem;
+reg [17:0] address;
+
+assign playsound = KEY[0];
+
+initial begin
+	address <= 0;
+	delay_cnt <= 0;
+end
+
+Gameoversound (.address(address), .clock(CLOCK_50), .q(audiofrommem));
+
+
+// State Machine Registers
+
+/*****************************************************************************
+ *                         Finite State Machine(s)                           *
+ *****************************************************************************/
+
+
+/*****************************************************************************
+ *                             Sequential Logic                              *
+ *****************************************************************************/
+
+reg [15:0] DelayCounter;
+
+   // 26-bit counter for 50,000,000 cycles (1 second)
+
+always @(posedge CLOCK_50) begin
+if (playsound == 1)begin
+  DelayCounter <= DelayCounter + 1;
+  if (DelayCounter == 16'd44091) begin  // 50,000,000 cycles for 1 Hz frequency
+    DelayCounter <= 0;
+    address <= address + 1; // Increment the address
+  end
+ end
+ else begin
+ DelayCounter <=0;
+ address <= 0;
+ 
+ end
+ 
+end
+
+
+always @(posedge CLOCK_50)
+	if(delay_cnt == delay) begin
+		delay_cnt <= 0;
+		snd <= !snd;
+	end else delay_cnt <= delay_cnt + 1;
+
+
+//assign delay = {3'd5,delayfrommem};
+
+/*****************************************************************************
+ *                            Combinational Logic                            *
+ *****************************************************************************/
+
+//wire [31:0] sound =  snd ? 32'd100000000 : -32'd100000000;
+
+
+assign read_audio_in			= audio_in_available & audio_out_allowed;
+
+assign left_channel_audio_out	= audiofrommem<<14;
+assign right_channel_audio_out	= audiofrommem<<14;
+assign write_audio_out			= audio_in_available & audio_out_allowed;
+
+/*****************************************************************************
+ *                              Internal Modules                             *
+ *****************************************************************************/
+endmodule 

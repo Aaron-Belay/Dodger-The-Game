@@ -17,4 +17,4 @@ https://github.com/Aaron-Belay/Dodger-ECE241FinalProject/assets/146603994/f52e2b
 
 
 
-I hope you enjoy! (FYI, I recieved a perfect mark for the project!)
+I hope you enjoy!

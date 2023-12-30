@@ -11,4 +11,9 @@ Introducing Dodger, a meticulously crafted, fully animated game developed entire
 - Real-time display of the player's current score on a HEX display, along with the all-time high score
 - Efficient utilization of SDRAM Memory to store and retrieve Title Screens, High Scores, Audio Files, etc.
 
+## Here's a short clip of the game:
+https://github.com/Aaron-Belay/Dodger-ECE241FinalProject/assets/146603994/38daf27f-dfb0-439d-bd27-cc151c58b633
+
+
+
 I hope you enjoy! (FYI, I recieved a perfect mark for the project!)

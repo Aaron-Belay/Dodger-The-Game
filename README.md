@@ -12,7 +12,8 @@ Introducing Dodger, a meticulously crafted, fully animated game developed entire
 - Efficient utilization of SDRAM Memory to store and retrieve Title Screens, High Scores, Audio Files, etc.
 
 ## Here's a short clip of the game:
-https://github.com/Aaron-Belay/Dodger-ECE241FinalProject/assets/146603994/38daf27f-dfb0-439d-bd27-cc151c58b633
+
+https://github.com/Aaron-Belay/Dodger-ECE241FinalProject/assets/146603994/f52e2bb7-6110-43cc-a019-e5307ef16182
 
 
 

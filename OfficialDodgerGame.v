@@ -1,4 +1,4 @@
-module pleasework
+module dodgerthegame
 	(
 		CLOCK_50,						//	On Board 50 MHz
 		// Your inputs and outputs here
